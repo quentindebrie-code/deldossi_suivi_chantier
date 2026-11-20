@@ -4,8 +4,8 @@
 import {
   sb, $, $$, esc, S, MOIS, MC, euro, euro2, num, pct, fmtDT, ic, seg, toast, modal, confirmBox, loadLib, download, stagger, store,
   rowsYear, rowsMonth, rowCalc, activeServices, allServices, vehicules, seuilDefaut, deptName, n1, setParam, log, errMsg, loadAll, emit,
-  norm, slug, parseNum, r2, hours, hhmm, veh, GROUPES, groupeLabel, years_, EASE, RM
-} from './core.js';
+  norm, slug, parseNum, r2, hours, hhmm, veh, GROUPES, groupeLabel, years_, EASE, RM, pick
+} from './core.js?v=2';
 
 const colL = n => { let s = ''; n++; while (n > 0) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; }; // 0 -> A
 
@@ -255,7 +255,7 @@ async function importFile(file, ctx) {
     try {
       if (res.newSrv.length) { const mx = S.services.reduce((a, s) => Math.max(a, s.ordre), 0); const { error } = await sb.from('chantier_services').upsert(res.newSrv.map((s, i) => ({ code: s.code, libelle: s.libelle, entete: s.entete, groupe: s.groupe, ordre: mx + 1 + i, actif: true }))); if (error) throw error; }
       if (mode === 'replace') { const { error } = await sb.from('chantier_interventions').delete().eq('annee', year).in('mois', ms); if (error) throw error; }
-      const all = ms.flatMap(m => res.months[m].map(r => ({ ...r, annee: year, ordre: mode === 'add' ? r.ordre + 1000 : r.ordre })));
+      const all = ms.flatMap(m => res.months[m].map(r => pick({ ...r, annee: year, ordre: mode === 'add' ? r.ordre + 1000 : r.ordre })));
       for (let i = 0; i < all.length; i += 200) { const { error } = await sb.from('chantier_interventions').insert(all.slice(i, i + 200)); if (error) throw error; }
       await log('Import Excel', { mois: ms, lignes: all.length, texte: `${file.name} · ${mode === 'replace' ? 'remplacement' : 'ajout'} · ${year}` });
       S.annee = year; store.set('dl-annee', year); await loadAll(); close(); toast(`${all.length} interventions importées`, 'check'); ctx.go('accueil');

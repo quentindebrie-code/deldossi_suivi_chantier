@@ -96,7 +96,9 @@ export function errMsg(e) {
   return 'Enregistrement impossible. Réessayez dans un instant.';
 }
 const COLS = ['annee', 'mois', 'jour', 'h_fourgon', 'h_camion', 'personnes', 'fourgon', 'camion', 'lieu', 'cofrac', 'client', 'dept', 'montants', 'ordre'];
-export const pick = r => Object.fromEntries(COLS.map(k => [k, r[k] === undefined ? null : r[k]]));
+const TXT = ['h_fourgon', 'h_camion', 'fourgon', 'camion', 'lieu', 'client', 'dept'];
+export const pick = r => Object.fromEntries(COLS.map(k => { const v = r[k] === undefined ? null : r[k];
+  if (TXT.includes(k)) return [k, v == null ? '' : String(v)]; if (k === 'montants') return [k, v || {}]; if (k === 'cofrac') return [k, !!v]; if (k === 'ordre') return [k, Number(v) || 0]; return [k, v]; }));
 export function upsertLocal(r) { fix(r); const i = S.rows.findIndex(x => x.id === r.id); if (i > -1) S.rows[i] = r; else S.rows.push(r); }
 export async function saveRow(r) {
   const body = pick(r); let res;

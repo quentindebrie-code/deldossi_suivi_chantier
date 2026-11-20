@@ -5,8 +5,8 @@ import {
   $, $$, esc, S, MOIS, MC, euro, euro2, keur, num, pct, fmtDate, fmtDT, ic, seg, segSet, toast, confirmBox, animateBars, tipOn, stagger,
   rowsYear, rowsMonth, rowCalc, aggregate, activeServices, allServices, seuilOf, vehicules, deptName, n1, statut, activeMonths, anomalies, hours, hhmm,
   parseNum, r2, saveRow, deleteRow, upsertLocal, log, errMsg, groupeLabel, GROUPES, store, veh, FINE, RM, EASE, sb, norm, modal
-} from './core.js';
-import { columns, lines, donut, hbars, pareto, kpi, pal } from './charts.js';
+} from './core.js?v=2';
+import { columns, lines, donut, hbars, pareto, kpi, pal } from './charts.js?v=2';
 
 const svcName = code => (S.services.find(s => s.code === code) || { libelle: code }).libelle;
 const after = (host) => { animateBars(host); tipOn(host); stagger(host); };

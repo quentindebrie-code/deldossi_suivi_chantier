@@ -4,9 +4,9 @@
 import {
   sb, $, $$, esc, root, EASE, RM, store, S, loadAll, toast, modal, seg, segSet, setupInd, setupGlide, place, replaceInd, ic, animOut, stagger,
   setTheme, syncThemeLabel, logoSVG, onChange, years_, upsertLocal, rowCalc, MOIS, euro2, fmtDate, errMsg
-} from './core.js';
-import { renderDashboard, renderSaisie, renderVehicules, renderClients, renderServices, renderTerritoire, renderTendance, renderProductivite, savesPending } from './views.js';
-import { renderDonnees, renderParametres } from './data.js';
+} from './core.js?v=2';
+import { renderDashboard, renderSaisie, renderVehicules, renderClients, renderServices, renderTerritoire, renderTendance, renderProductivite, savesPending } from './views.js?v=2';
+import { renderDonnees, renderParametres } from './data.js?v=2';
 
 const NAV = [
   { k: 'accueil', l: 'Tableau de bord', s: 'Accueil', i: 'home', t: 'Tableau de bord', d: 'Chiffre d\'affaires, rentabilité de la flotte, portefeuille clients et points à vérifier, mis à jour en direct.' },

@@ -1,7 +1,7 @@
 /* =========================================================
    CHARTS : lightweight SVG, theme aware, Transport palette
    ========================================================= */
-import { esc, euro, keur, pct, root, num } from './core.js';
+import { esc, euro, keur, pct, root, num } from './core.js?v=2';
 
 export function pal() {
   return root.dataset.theme === 'dark'
